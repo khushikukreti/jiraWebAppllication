@@ -10,6 +10,7 @@ let filterContainers = document.querySelectorAll(".filter_color-container");
 let lock=document.querySelector(".lock");
 let lockicon=document.querySelector(".flag1");
 let unlockicon=document.querySelector(".flag2");
+let btn=document.querySelector(".btn");
 let modalFlag = false;
 let deleteState = false;
 let editstae=false;
@@ -65,6 +66,9 @@ function createTicketFromLocalStorage(taskObj) {
 
 plusBtn.addEventListener("click", function() {
     modalContainer.style.display = "flex";
+})
+btn.addEventListener("click",function(){
+    modalContainer.style.display = "none";
 })
 taskBox.addEventListener("keydown", function(e) {
     if (e.key == "Enter" && taskBox.value != "") {
