@@ -44,8 +44,36 @@ function createTicketFromLocalStorage(taskObj) {
     //deleting task
     taskContainer.addEventListener("click", deleteTask);
     //editing task;
-    taskDEsc=document.querySelector(".ticket_desc");
-    taskDEsc.addEventListener("click",editTask);
+    taskDEsc=document.querySelectorAll(".ticket_desc");
+   
+    for(let i=0; i<taskDEsc.length; i++){
+        taskDEsc[i].addEventListener("click",function(){
+            if(editstae){
+                taskDEsc[i].setAttribute("contenteditable",true);
+                taskDEsc[i].addEventListener("keydown",function(){
+                    let uidElem = taskDEsc[i].parentNode.children[0];
+                    let uid = uidElem.innerText.split("#")[1];
+                    let x=taskDEsc[i].innerText;
+                    console.log(x);
+                    for (let i = 0; i < allTasks.length; i++) {
+                        let { id } = allTasks[i];
+                        console.log(id, uid);
+                        if (id == uid) {
+                            allTasks[i].task = taskDEsc[i].innerText;
+                            console.log(allTasks[i].task);
+                            let finalTaskArr = JSON.stringify(allTasks);
+                            localStorage.setItem("allTasks", finalTaskArr);
+                                break;
+                        }
+                    }
+                })
+               
+            }else{
+                taskDEsc[i].setAttribute("contenteditable",false);
+            }
+        });
+    }
+    // taskDEsc.addEventListener("click",editTask);
     // cleanup code
    addFunctionality(taskContainer);
 }
@@ -84,6 +112,34 @@ taskBox.addEventListener("keydown", function(e) {
         mainContainer.appendChild(taskContainer);
         taskContainer.addEventListener("click", deleteTask);
         
+        taskDEsc=document.querySelectorAll(".ticket_desc");
+        for(let i=0; i<taskDEsc.length; i++){
+            taskDEsc[i].addEventListener("click",function(){
+                if(editstae){
+                    taskDEsc[i].setAttribute("contenteditable",true);
+                    taskDEsc[i].addEventListener("keydown",function(){
+                        let uidElem = taskDEsc[i].parentNode.children[0];
+                        let uid = uidElem.innerText.split("#")[1];
+                        let x=taskDEsc[i].innerText;
+                        console.log(x);
+                        for (let i = 0; i < allTasks.length; i++) {
+                            let { id } = allTasks[i];
+                            console.log(id, uid);
+                            if (id == uid) {
+                                allTasks[i].task = taskDEsc[i].innerText;
+                                console.log(allTasks[i].task);
+                                let finalTaskArr = JSON.stringify(allTasks);
+                                localStorage.setItem("allTasks", finalTaskArr);
+                                    break;
+                            }
+                        }
+                    })
+                   
+                }else{
+                    taskDEsc[i].setAttribute("contenteditable",false);
+                }
+            });
+        }
         // taskContainer.addEventListener("click", deleteTask);
         // crossBtn.addEventListener("click",function(){
         //     if(deleteState== false){
@@ -247,31 +303,31 @@ function setedittaskState(e){
         unlockicon.style.display="none";
     }
 }
-function editTask(){
-    
-    console.log("T");
-    if(editstae){
-        taskDEsc.setAttribute("contenteditable",true);
-        taskDEsc.addEventListener("keydown",function(){
-            let uidElem = taskDEsc.parentNode.children[0];
-            let uid = uidElem.innerText.split("#")[1];
-            let x=taskDEsc.innerText;
-            console.log(x);
-            for (let i = 0; i < allTasks.length; i++) {
-                let { id } = allTasks[i];
-                console.log(id, uid);
-                if (id == uid) {
-                    allTasks[i].task = taskDEsc.innerText;
-                    console.log(allTasks[i].task);
-                    let finalTaskArr = JSON.stringify(allTasks);
-                    localStorage.setItem("allTasks", finalTaskArr);
-                        break;
-                }
-            }
-        })
+// function editTask(e){
+//   taskDEsc=e.currentTarget;
+//     console.log("T");
+//     if(editstae){
+//         taskDEsc.setAttribute("contenteditable",true);
+//         taskDEsc.addEventListener("keydown",function(){
+//             let uidElem = taskDEsc.parentNode.children[0];
+//             let uid = uidElem.innerText.split("#")[1];
+//             let x=taskDEsc.innerText;
+//             console.log(x);
+//             for (let i = 0; i < allTasks.length; i++) {
+//                 let { id } = allTasks[i];
+//                 console.log(id, uid);
+//                 if (id == uid) {
+//                     allTasks[i].task = taskDEsc.innerText;
+//                     console.log(allTasks[i].task);
+//                     let finalTaskArr = JSON.stringify(allTasks);
+//                     localStorage.setItem("allTasks", finalTaskArr);
+//                         break;
+//                 }
+//             }
+//         })
        
-    }else{
-        taskDEsc.setAttribute("contenteditable",false);
-    }
+//     }else{
+//         taskDEsc.setAttribute("contenteditable",false);
+//     }
    
-}
+// }
